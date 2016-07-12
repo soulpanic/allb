@@ -1,0 +1,1050 @@
+FORMAT: 1A
+HOST: https://api.myallb.com/v1
+
+# allb
+
+    allb v1 API Document
+
+## Accounts Collection [/accounts]
+
+### Signup SMS Code [POST /accounts/send_signup_sms_code]
+
++ Request (application/json; charset=UTF-8)
+
+    + Body
+    
+            {
+                "device_id": "A243E750-217B-43BD-833C-0D141238CAE6",
+                "phone_number": "+8201048160101"
+            }
+  
++ Response 200 (application/json)
+        
+        {
+            "status": "ok"
+        }
+
+### Validate Signup SMS Code [POST /accounts/validate_signup_sms_code]
+
++ Request (application/json; charset=UTF-8)
+
+    + Body
+    
+            {
+                "device_id": "A243E750-217B-43BD-833C-0D141238CAE6",
+                "phone_number": "+8201048160101",
+                "verification_code": "718536"
+            }
+            
++ Response 200 (application/json)
+        
+        {
+            "status": "ok"
+        }
+
+
+
+### Create User by Phone Number [POST /accounts/create_validated/]
+
++ Request (application/json; charset=UTF-8)
+
+    + Body
+    
+            {
+                "password": "973b0f95b114646f61132a1cfb3f77f3a1b5d6fd",
+                "device_id": "A243E750-217B-43BD-833C-0D141238CAE6",
+                "verification_code": "718536",
+                "username": "allb",
+                "phone_number": "+8201048160101",
+                "full_name": "올비"
+            }
+
++ Response 200 (application/json)
+    
+    + Headers
+
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+            Set-Cookie: allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+
+    + Body
+        
+            {
+                "status": "ok",
+                "created_user": {
+                    "username": "allb",
+                    "has_anonymous_profile_picture": true,
+                    "full_name": "올비",
+                    "user_id": 3508964009,
+                    "profile_pic_url_info": {
+                        "url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                        "width": 150,
+                        "height": 150
+                    }
+                },
+                "account_created": true
+            }
+
+### Create User by Email [POST /accounts/create/]
+
++ Request (application/json; charset=UTF-8)
+
+    + Body
+    
+            {
+                "full_name": "올비",
+                "password": "973b0f95b114646f61132a1cfb3f77f3a1b5d6fd",
+                "device_id": "A243E750-217B-43BD-833C-0D141238CAE6",
+                "email": "developer@myallb.com",
+                "username": "allb"
+            }
+
++ Response 200 (application/json)
+    
+    + Headers
+
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+            Set-Cookie: allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+
+    + Body
+        
+            {
+                "status": "ok",
+                "created_user": {
+                    "username": "allb",
+                    "has_anonymous_profile_picture": true,
+                    "full_name": "올비",
+                    "user_id": 3508964009,
+                    "profile_pic_url_info": {
+                        "url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                        "width": 150,
+                        "height": 150
+                    }
+                },
+                "account_created": true
+            }
+            
+
+### Change Profile Picture [POST /accounts/change_profile_picture]
+
++ Request (multipart/form-data;boundary=--18049700-A5D6-4E28-AB1D-00108CE7F108)
+
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+            Content-Length: 273570
+            
+    + Body
+    
+            --18049700-A5D6-4E28-AB1D-00108CE7F108
+            Content-Disposition: form-data; name="profile_pic"; filename="profile_pic"
+            Content-Type: image/jpeg
+            Content-Transfer-Encoding: binary
+
+
++ Response 200 (application/json)
+        
+        {
+            "status": "ok",
+            "user": {
+                "username": "allb",
+                "has_anonymous_profile_picture": false,
+                "profile_pic_id": "1287645170888034076_3508964009",
+                "full_name": "올비",
+                "user_id": 3508964009,
+                "profile_pic_url_info": {
+                    "url": "http://scontent.myallb.com/t51.2885-19/s150x150/13531818_203446720052506_1355391822_a.jpg",
+                    "width": 150,
+                    "height": 150
+                }
+            }
+        }
+        
+
+
+
+### Login by Username [POST /accounts/login]
+
++ Request (application/json; charset=UTF-8)
+
+    + Body
+    
+            {
+                "username": "allb",
+                "password": "973b0f95b114646f61132a1cfb3f77f3a1b5d6fd",
+                "device_id": "A243E750-217B-43BD-833C-0D141238CAE6",
+                "login_attempt_count": "0"
+            }
+            
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user=allb; expires=Mon, 03-Oct-2016 13:06:33 GMT; Max-Age=7776000; Path=/
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+            Set-Cookie: allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+    
+    + Body
+        
+            {
+                "logged_in_user": {
+                    "username": "allb",
+                    "has_anonymous_profile_picture": false,
+                    "profile_pic_url_info": {
+                        "url": "http://scontent.myallb.com/t51.2885-19/s150x150/13531818_203446720052506_1355391822_a.jpg",
+                        "width": 150,
+                        "height": 150
+                    },
+                    "full_name": "올비",
+                    "user_id": 3508964009,
+                    "fbuid": ""
+                },
+                "status": "ok"
+            }
+
+### Logout [POST /accounts/logout]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+            
+    + Body
+    
+            {
+                "device_id": "A243E750-217B-43BD-833C-0D141238CAE6",
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user=; expires=Mon, 03-Oct-2016 13:06:33 GMT; Max-Age=7776000; Path=/
+            Set-Cookie: ds_user_id=; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+            Set-Cookie: allb.sid=; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+    
+    + Body
+        
+            {
+                "status": "ok"
+            }
+
+### Reset Password by Email [POST /accounts/send_password_reset/]
+
++ Request (application/json; charset=UTF-8)
+
+    + Body
+    
+            {
+                "user_id": "3508964009",
+                "device_id": "A243E750-217B-43BD-833C-0D141238CAE6"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+        
+            {
+                "status": "ok",
+                "obfuscated_email": "de*****er@myallb.com"
+            }
+
+### Reset Password by SMS [POST /accounts/send_password_sms_reset/]
+
++ Request (application/json; charset=UTF-8)
+
+    + Body
+    
+            {
+                "user_id": "3508964009"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+        
+            {
+                "status": "ok",
+            }
+
+### Change Password [POST /accounts/change_password/]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+    
+    + Body
+    
+            {
+                "old_password": "973b0f95b114646f61132a1cfb3f77f3a1b5d6fd",
+                "new_password1": "123b0f95b114646f61132a1cfb3f77f3a1b5d6ff",
+                "device_id": "A243E750-217B-43BD-833C-0D141238CAE6",
+                "user_id": "3508964009"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+            Set-Cookie: allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+ 
+    + Body
+        
+            {
+                "status": "ok"
+            }
+            
+
+### Accounts Session Check [POST /accounts/check/]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+    
+    + Attributes
+
+        + user_id (string)
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "user_id": "3508964009"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+     
+    + Body
+        
+            {
+                "status": "ok"
+            }
+
+
+## Users Collection [/users]
+
+### Check Username [GET /users/check_username/{user_name}]
+
++ Attributes
+
+    + user_name (string)
+    
++ Response 200 (application/json)
+        
+        {
+            "status": "ok"
+            "username": "allb", 
+            "available": true
+        }
+
+### Check Email [GET /users/check_email/]
+
++ Request (application/json; charset=UTF-8)
+
+    + Body
+    
+            {
+                "email": "developer@myallb.com",
+                "qe_id": "A243E750-217B-43BD-833C-0D141238CAE6"
+            }
+            
++ Response 200 (application/json)
+        
+        {
+            "available": true,
+            "status": "ok",
+            "confirmed": true,
+            "valid": true
+        }
+
+### Lookup Username [POST /users/lookup/]
+
++ Request (application/json; charset=UTF-8)
+
+    + Body
+    
+            {
+                "q": "allb"
+            }
+
+
++ Response 200 (application/json)
+
+    + Body
+        
+            {
+                "status": "ok",
+                "can_email_reset": true,
+                "can_sms_reset": true,
+                "email_sent": false,
+                "has_valid_phone": false,
+                "user": {
+                    "username": "allb",
+                    "has_anonymous_profile_picture": false,
+                    "profile_pic_url_info": {
+                        "url": "http://scontent.myallb.com/t51.2885-19/s150x150/13531818_203446720052506_1355391822_a.jpg",
+                        "width": 150,
+                        "height": 150
+                    },
+                    "full_name": "올비",
+                    "user_id": 3508964009
+                }
+            }
+
+
+## Facebook Collection [/fd]
+
+### Create User by FB [POST /fb/fb_signup/]
+
++ Request (application/json; charset=UTF-8)
+
+    + Body
+    
+            {
+                "device_id": "A243E750-217B-43BD-833C-0D141238CAE6",
+                "fb_access_token": "AAABwzLixnjYBABZCEHK73ZBIDMtyqDOoJdT3Yn1eAxxtnZA345940f3mNv79mNaD9e5x34pZCAACybWuceQG09aZBcbWTS3aaSmtH9C8XGUPo2JDqYZB6h1OkJaUtmGZChYOGMMEcYQZCKYxU9MEZHClJAzi8Jg8Ip0SZA8AYy9lNotkwz4ZBXqOx3sNYyqRTryXnBYZD",
+            } 
+
++ Response 200 (application/json)
+
+    + Body
+        
+            {
+                "fb_me": {
+                    "is_employee": false,
+                    "first_name": "올비",
+                    "last_name": "",
+                    "verified": false,
+                    "name": "올비",
+                    "locale": "ko_KR",
+                    "gender": "male",
+                    "email": "allb@myallb.com",
+                    "link": "https://www.facebook.com/app_scoped_user_id/100012728199493/",
+                    "timezone": 9,
+                    "updated_time": "2016-07-07T00:08:48+0000",
+                    "id": "100012728191493"
+                },
+                "status": "ok",
+                "account_created": false
+            }
+
+
++ Response 201 (application/json)
+    
+    + Headers
+
+            Set-Cookie: ds_user=allb; expires=Sun, 02-Oct-2016 06:56:13 GMT; Max-Age=7776000; Path=/
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+            Set-Cookie: allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+
+    + Body
+        
+            {
+                "logged_in_user": {
+                    "username": "allb",
+                    "has_anonymous_profile_picture": false,
+                    "profile_pic_url_info": {
+                        "url": "http://scontent.myallb.com/t51.2885-19/s150x150/13531818_203446720052506_1355391822_a.jpg",
+                        "width": 150,
+                        "height": 150
+                    },
+                    "full_name": "올비",
+                    "user_id": 3508964009,
+                    "fbuid": "100001826920780"
+                },
+                "status": "ok"
+            }
+
+
+
+
+### Store FB Token [POST /fb/store_token]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+    
+    + Body
+    
+            {
+                "fb_access_toke": "AAABwzLixnjYBABZCEHK73ZBIDMtyqDOoJdT3Yn1eAxxtnZA345940f3mNv79mNaD9e5x34pZCAACybWuceQG09aZBcbWTS3aaSmtH9C8XGUPo2JDqYZB6h1OkJaUtmGZChYOGMMEcYQZCKYxU9MEZHClJAzi8Jg8Ip0SZA8AYy9lNotkwz4ZBXqOx3sNYyqRTryXnBYZD",
+                "device_id": "A243E750-217B-43BD-833C-0D141238CAE6"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+             
+    + Body
+        
+            {
+                "status": "ok"
+            }
+
+## Push Collection [/push]
+
+### Regist Push [POST /push/register/?device_type={type}]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+    
+    + Attributes
+
+        + device_type (string)
+        
+    + Body
+    
+            {
+                "user_id": "3508964009",
+                "device_id": "A243E750-217B-43BD-833C-0D141238CAE6",
+                "device_token": "af90093f01e0baba123b2047a5dd554321adf9eae22a3ff2e4a9bf7e9a4787b3",
+                "device_type": "ios"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+             
+    + Body
+        
+            {
+                "status": "ok"
+            }
+
+
+
+## Find Friends Collection [/address_book]
+
+### Find Friends by Addressbook [POST /address_book/link/]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+    
+    + Body
+    
+            {
+                "device_id": "A243E750-217B-43BD-833C-0D141238CAE6",
+                "contacts": [
+                    {
+                        "phone_numbers": [
+                            "010-1234-5678"
+                        ],
+                        "first_name": "에리카",
+                        "last_name": "김"
+                    },
+                    {
+                        "email_addresses": [
+                            "min@myallb.com"
+                        ],
+                        "first_name": "",
+                        "last_name": "민"
+                    },
+                    {
+                        "phone_numbers": [
+                            "010-4321-8765"
+                        ],
+                        "email_addresses": [
+                            "jean@myallb.com"
+                        ],
+                        "last_name": "",
+                        "first_name": "진"
+                    }
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+        
+    + Body
+        
+            {
+                "status": "ok",
+                "users": [
+                    {
+                        "username": "min",
+                        "has_anonymous_profile_picture": false,
+                        "profile_pic_url_info": {
+                            "url": "http://scontent.myallb.com/t51.2885-19/s150x150/13531818_203446720052506_1355391822_a.jpg",
+                            "width": 150,
+                            "height": 150
+                        },
+                        "full_name": "민",
+                        "user_id": 3508964029,
+                        "babies_thumbnails": [
+                            {
+                                "has_anonymous_profile_picture": false,
+                                "profile_pic_url_info": {
+                                    "url": "http://scontent.myallb.com/t51.2885-19/s150x150/13531818_203446720052506_1355391822_a.jpg",
+                                    "width": 150,
+                                    "height": 150
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "username": "erica",
+                        "has_anonymous_profile_picture": false,
+                        "profile_pic_url_info": {
+                            "url": "http://scontent.myallb.com/t51.2885-19/s150x150/13531818_203446720052506_1355391822_a.jpg",
+                            "width": 150,
+                            "height": 150
+                        },
+                        "full_name": "엘카",
+                        "user_id": 3508964019,
+                        "babies_thumbnails": [
+                            {
+                                "has_anonymous_profile_picture": false,
+                                "profile_pic_url_info": {
+                                    "url": "http://scontent.myallb.com/t51.2885-19/s150x150/13531818_203446720052506_1355391822_a.jpg",
+                                    "width": 150,
+                                    "height": 150
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+
+### Find Friends by FB [POST /fb/find/]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+    
+    + Body
+    
+            {
+                "device_id": "A243E750-217B-43BD-833C-0D141238CAE6",
+                "fb_access_token": "AAABwzLixnjYBABZCEHK73ZBIDMtyqDOoJdT3Yn1eAxxtnZA345940f3mNv79mNaD9e5x34pZCAACybWuceQG09aZBcbWTS3aaSmtH9C8XGUPo2JDqYZB6h1OkJaUtmGZChYOGMMEcYQZCKYxU9MEZHClJAzi8Jg8Ip0SZA8AYy9lNotkwz4ZBXqOx3sNYyqRTryXnBYZD"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+        
+    + Body
+        
+            {
+                "status": "ok",
+                "users": [
+                    {
+                        "username": "bright",
+                        "has_anonymous_profile_picture": false,
+                        "profile_pic_url_info": {
+                            "url": "http://scontent.myallb.com/t51.2885-19/s150x150/13531818_203446720052506_1355391822_a.jpg",
+                            "width": 150,
+                            "height": 150
+                        },
+                        "full_name": "브라이트",
+                        "user_id": 3508964029,
+                        "babies_thumbnails": [
+                            {
+                                "has_anonymous_profile_picture": false,
+                                "profile_pic_url_info": {
+                                    "url": "http://scontent.myallb.com/t51.2885-19/s150x150/13531818_203446720052506_1355391822_a.jpg",
+                                    "width": 150,
+                                    "height": 150
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "username": "joshua",
+                        "has_anonymous_profile_picture": false,
+                        "profile_pic_url_info": {
+                            "url": "http://scontent.myallb.com/t51.2885-19/s150x150/13531818_203446720052506_1355391822_a.jpg",
+                            "width": 150,
+                            "height": 150
+                        },
+                        "full_name": "조수아",
+                        "user_id": 3508964019,
+                        "babies_thumbnails": [
+                            {
+                                "has_anonymous_profile_picture": false,
+                                "profile_pic_url_info": {
+                                    "url": "http://scontent.myallb.com/t51.2885-19/s150x150/13531818_203446720052506_1355391822_a.jpg",
+                                    "width": 150,
+                                    "height": 150
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+
+
+## Friendships Collection [/friendships]
+
+### Follow User [POST /friendships/create/]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+    
+    + Attributes
+
+        + follow_user_id (string)
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "user_id": "3508964009",
+                "follow_users_id": ["3495141195"]
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+     
+    + Body
+        
+            {
+                "status": "ok"
+            }
+            
+            
+### Unfollow User [POST /friendships/destroy/{unfollow_user_id}/]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+    
+    + Attributes
+
+        + unfollow_user_id (string)
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "user_id": "3508964009",
+                "follow_user_id": "3495141195"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+     
+    + Body
+        
+            {
+                "status": "ok"
+            }
+
+
+
+## Babies Collection [/babies]
+
+           
+### Create Baby [POST /babies/create]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+    
+    + Attributes
+
+        + unfollow_user_id (string)
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "user_id": "3508964009",
+                "follow_user_id": "3495141195"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+     
+    + Body
+        
+            {
+                "status": "ok"
+            }
+
+
+
+### Change Straight Profile Picture [POST /babies/change_straight_profile_picture]
+
++ Request (multipart/form-data;boundary=--18049700-A5D6-4E28-AB1D-00108CE7F108)
+
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+            Content-Length: 273570
+            
+    + Body
+    
+            --18049700-A5D6-4E28-AB1D-00108CE7F108
+            Content-Disposition: form-data; name="profile_pic"; filename="profile_pic"
+            Content-Type: image/jpeg
+            Content-Transfer-Encoding: binary
+
+
++ Response 200 (application/json)
+        
+        {
+            "status": "ok",
+            "user": {
+                "username": "allb",
+                "has_anonymous_profile_picture": false,
+                "profile_pic_id": "1287645170888034076_3508964009",
+                "full_name": "올비",
+                "user_id": 3508964009,
+                "profile_pic_url_info": {
+                    "url": "http://scontent.myallb.com/t51.2885-19/s150x150/13531818_203446720052506_1355391822_a.jpg",
+                    "width": 150,
+                    "height": 150
+                }
+            }
+        }
+        
+
+
+
+### Change Prone Profile Picture [POST /accounts/change_prone_profile_picture]
+
++ Request (multipart/form-data;boundary=--18049700-A5D6-4E28-AB1D-00108CE7F108)
+
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+            Content-Length: 273570
+            
+    + Body
+    
+            --18049700-A5D6-4E28-AB1D-00108CE7F108
+            Content-Disposition: form-data; name="profile_pic"; filename="profile_pic"
+            Content-Type: image/jpeg
+            Content-Transfer-Encoding: binary
+
+
++ Response 200 (application/json)
+        
+        {
+            "status": "ok",
+            "user": {
+                "username": "allb",
+                "has_anonymous_profile_picture": false,
+                "profile_pic_id": "1287645170888034076_3508964009",
+                "full_name": "올비",
+                "user_id": 3508964009,
+                "profile_pic_url_info": {
+                    "url": "http://scontent.myallb.com/t51.2885-19/s150x150/13531818_203446720052506_1355391822_a.jpg",
+                    "width": 150,
+                    "height": 150
+                }
+            }
+        }
+        
+
+## Allbs Collection [/allbs]
+
+### Check Allb Device Id [POST /allbs/check_device_id]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+    
+    + Attributes
+
+        + unfollow_user_id (string)
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "user_id": "3508964009",
+                "follow_user_id": "3495141195"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+     
+    + Body
+        
+            {
+                "status": "ok"
+            }
+
+
+
+### Link to Baby [POST /allbs/link]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+    
+    + Attributes
+
+        + unfollow_user_id (string)
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "user_id": "3508964009",
+                "follow_user_id": "3495141195"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+     
+    + Body
+        
+            {
+                "status": "ok"
+            }
+
+
+
+### Unlink Baby [POST /allbs/link]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+    
+    + Attributes
+
+        + unfollow_user_id (string)
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "user_id": "3508964009",
+                "follow_user_id": "3495141195"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+     
+    + Body
+        
+            {
+                "status": "ok"
+            }
+
+
+### Connected Allb [POST /allbs/connected_allb]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+    
+    + Attributes
+
+        + unfollow_user_id (string)
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "user_id": "3508964009",
+                "follow_user_id": "3495141195"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+     
+    + Body
+        
+            {
+                "status": "ok"
+            }
+
+
+
+### Disconnected Allb [POST /allbs/disconnected_allb]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+    
+    + Attributes
+
+        + unfollow_user_id (string)
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "user_id": "3508964009",
+                "follow_user_id": "3495141195"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+     
+    + Body
+        
+            {
+                "status": "ok"
+            }
