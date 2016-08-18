@@ -1,9 +1,88 @@
 FORMAT: 1A
-HOST: https://api.myallb.com/v1
+HOST: https://dev.myallb.com/v1
 
 # allb
 
     allb v1 API Document
+
+## HTTP Response Codes
+
+HTTP status code described below should be returned by service:
+
+### Success responses
+
+<table>
+    <tr>
+        <td>200 <code>OK</code></td>
+        <td>The request was successful.</td>
+    </tr>
+    <tr>
+        <td>201 <code>Created</code></td>
+        <td>The request was successful and a new resource was created.</td>
+    </tr>
+    <tr>
+        <td>202 <code>Accepted</code></td>
+        <td>Asynchronous request - The request has been accepted for processing, but the processing has not been completed. Response must contain URL of resource to poll for result.</td>
+    </tr>
+    <tr>
+        <td>204 <code>No Content</code></td>
+        <td>The request was successful but there is nothing to return. Usually response of DELETE requests.</td>
+    </tr>
+</table>
+
+### Error responses
+<table>
+    <tr>
+        <td>400 <code>Bad Request</code></td>
+        <td>The request was invalid. Usually caused by invalid input data (missing arguments, invalid arguments values, etc.).  Cause of error is described in response.</td>
+    </tr>
+    <tr>
+        <td>401 <code>Unauthorized</code></td>
+        <td>Authentication failed.</td>
+    </tr>
+    <tr>
+        <td>403 <code>Forbidden</code></td>
+        <td>You don't have access to resource.</td>
+    </tr>
+    <tr>
+        <td>404 <code>Not Found</code></td>
+        <td>You're asking for something that doesn't exist.</td>
+    </tr>
+    <tr>
+        <td>500 <code>Internal Server Error</code></td>
+        <td>Something went wrong. We are sorry, it is our fault and we will make our best to fix it!</td>
+    </tr>
+    <tr>
+        <td>503 <code>Temporary Unavailable</code></td>
+        <td>This response is typically returned when system is under maintenance.
+            Maintenance reason and expected maintenance ent time are also returned in response.
+        </td>
+    </tr>
+</table>
+
+
+## HTTP Verbs
+
+* `GET` Used for retrieving resources
+* `POST` Used for creating resources
+* `PUT` Used for updating existing resources
+* `DELETE` Used for deleting resources
+
+
+## Parameters
+Many API methods take optional parameters. For GET requests, 
+any parameters not specified as a segment in the path can be passed as an HTTP query string parameter.
+
+For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL should be encoded as JSON.
+
+    curl -i -H 'X-StorageApi-Token: your_token' -d '{"name":"my table"}'
+## Responses
+
+* API should be **JSON** only
+* Resource URI must be returned in `uri` property
+* Any possible metadata related to request or resource should be returned in custom HTTP headers 
+
+
 
 ## Accounts Collection [/accounts]
 
@@ -17,13 +96,38 @@ HOST: https://api.myallb.com/v1
                 "device_id": "A243E750-217B-43BD-833C-0D141238CAE6",
                 "phone_number": "+8201048160101"
             }
-  
+
+
 + Response 200 (application/json)
-        
+        Returned if the user does not have access to the requested account
         {
-            "status": "ok"
+                "status": "ok"
         }
 
+
++ Response 200 (application/json)
+
+        + Body
+        {
+                "status": "not ok"
+        }
+
++ Response 400 (application/json)
+
+    Standard error response
+
+    + Body
+
+        ```
+        {
+            "message": "INVALID",
+            "errors": {
+                "offset": [
+                    "INVALID"
+                ]
+            }
+        }
+        ```
 ### Validate Signup SMS Code [POST /accounts/validate_signup_sms_code]
 
 + Request (application/json; charset=UTF-8)
@@ -83,6 +187,7 @@ HOST: https://api.myallb.com/v1
                 },
                 "account_created": true
             }
+
 
 ### Create User by Email [POST /accounts/create/]
 
@@ -949,8 +1054,7 @@ HOST: https://api.myallb.com/v1
             }
 
 
-
-### Unlink Baby [POST /allbs/link]
+### Unlink Baby [POST /allbs/unlink]
 
 + Request (application/json; charset=UTF-8)
     + Headers
@@ -1018,6 +1122,141 @@ HOST: https://api.myallb.com/v1
 
 
 ### Disconnected Allb [POST /allbs/disconnected_allb]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+    
+    + Attributes
+
+        + unfollow_user_id (string)
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "user_id": "3508964009",
+                "follow_user_id": "3495141195"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+     
+    + Body
+        
+            {
+                "status": "ok"
+            }
+            
+            
+## Statuses Collection [/statuses]
+
+### Snapshot [POST /statuses/snapshot/]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+    
+    + Attributes
+
+        + unfollow_user_id (string)
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "user_id": "3508964009",
+                "follow_user_id": "3495141195"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+     
+    + Body
+        
+            {
+                "status": "ok"
+            }
+
+### Send Status [POST /statuses/send]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+    
+    + Attributes
+
+        + unfollow_user_id (string)
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "user_id": "3508964009",
+                "follow_user_id": "3495141195"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+     
+    + Body
+        
+            {
+                "status": "ok"
+            }
+
+### Get Status of Days [POST /statuses/list_of_days/]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+    
+    + Attributes
+
+        + unfollow_user_id (string)
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "user_id": "3508964009",
+                "follow_user_id": "3495141195"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+     
+    + Body
+        
+            {
+                "status": "ok"
+            }
+
+
+## Channels Collection [/channels]
+
+
+### Conversations [GET /channels/conversations/]
 
 + Request (application/json; charset=UTF-8)
     + Headers
