@@ -1026,8 +1026,8 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             {
                 "status": "ok"
                 "baby" : {
-                    "onwer_id": "3508964011",
                     "id": "3508964019",
+                    "onwer_id": "3508964011",
                     "name": "애옹",
                     "has_anonymous_straight_profile_picture": true,
                     "has_anonymous_prone_profile_picture": true,
@@ -1065,8 +1065,8 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             {
                 "status": "ok"
                 "baby" : {
-                    "onwer_id": "3508964011",
                     "id": "3508964019",
+                    "onwer_id": "3508964011",
                     "name": "애옹",
                     "has_anonymous_straight_profile_picture": false,
                     "has_anonymous_prone_profile_picture": true,
@@ -1105,8 +1105,8 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             {
                 "status": "ok"
                 "baby" : {
-                    "onwer_id": "3508964011",
                     "id": "3508964019",
+                    "onwer_id": "3508964011",
                     "name": "애옹",
                     "has_anonymous_straight_profile_picture": true,
                     "has_anonymous_prone_profile_picture": false,
@@ -1122,7 +1122,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
 ## Allbs Collection [/allbs]
 
-### Check Allb Id [POST /allbs/check]
+### Check Allb Ids [POST /allbs/check]
 
 + Request (application/json; charset=UTF-8)
     + Headers
@@ -1151,6 +1151,19 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
             Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
      
+        
+    + Attributes
+        + status (enum[string], required)
+            + ok
+            + not ok
+        + allbs (object, required)
+            + id (string, required)
+            + registered (boolean, required)
+            + connected (boolean, required)
+            + onwer_id (string, optional)
+            + link_baby_id (string, optional)
+            + connect_user_id (string, optional)
+
     + Body
         
             {
@@ -1158,10 +1171,11 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                 "allbs": [
                     {
                         "id": "allb1234",
+                        "registered": true,
                         "onwer_id": "3508964011",
                         "link_baby_id": "3508964019",
-                        "state": "connected",
-                        "registered": true
+                        "connected": true,
+                        "connect_user_id": "3508964011",
                     },
                     {
                         "id": "allb1235",
@@ -1228,7 +1242,6 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                 "allb_id": "allb1235"
             }
 
-
 + Response 200 (application/json)
 
     + Headers
@@ -1244,8 +1257,8 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                     "id": "allb1235",
                     "onwer_id": "3508964011",
                     "link_baby_id": "3508964009",
-                    "state": "disconnected",
-                    "registered": true
+                    "connected": false,
+                    "registered": true,
                 }
             }
 
@@ -1322,8 +1335,9 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                     "id": "allb1235",
                     "onwer_id": "3508964011",
                     "link_baby_id": "3508964009",
-                    "state": "connected",
-                    "registered": true
+                    "connected": true,
+                    "registered": true,
+                    "connect_user_id": "3508964011",
                 }
             }
 
@@ -1365,45 +1379,13 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                     "id": "allb1235",
                     "onwer_id": "3508964011",
                     "link_baby_id": "3508964009",
-                    "state": "disconnected",
-                    "registered": true
+                    "connected": false,
+                    "registered": true,
                 }
             }
             
             
 ## Statuses Collection [/statuses]
-
-### Snapshot [POST /statuses/snapshot/]
-
-+ Request (application/json; charset=UTF-8)
-    + Headers
-            
-            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
-    
-    + Attributes
-
-        + unfollow_user_id (string)
-        
-    + Body
-    
-            {
-                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
-                "user_id": "3508964009",
-                "follow_user_id": "3495141195"
-            }
-
-
-+ Response 200 (application/json)
-
-    + Headers
-    
-            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
-     
-    + Body
-        
-            {
-                "status": "ok"
-            }
 
 ### Send Status [POST /statuses/send]
 
@@ -1413,15 +1395,70 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
     
     + Attributes
-
-        + unfollow_user_id (string)
-        
+        + device_id (string, required)
+        + baby_id (string, required)
+        + allb_id (string, required)
+        + data (object, required)
+            + length (number, required) 
+            + items (object, required)
+                + ts (number, required)
+                + wearing (boolean, required)
+                + ag (number, required)
+                + st (number, required)
+                + state (enum[number], required)
+                    + 0 - unknown
+                    + 1 - sleep
+                    + 2 - activity
+                + rr (number, required)
+                + pt (number, required)
+                
     + Body
     
             {
                 "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
-                "user_id": "3508964009",
-                "follow_user_id": "3495141195"
+                "baby_id": "3508964009",
+                "allb_id": "allb1235",
+                "data": {
+                    "length": 4,
+                    "items": [
+                        {
+                            "ts": 1471853460,
+                            "wearing": true,
+                            "ag": 1.15,
+                            "st": 37.5,
+                            "state": 1,
+                            "rr": 40,
+                            "pt": 0
+                        },
+                        {
+                            "ts": 1471853520,
+                            "wearing": true,
+                            "ag": 1.15,
+                            "st": 37.5,
+                            "state": 1,
+                            "rr": 40,
+                            "pt": 1
+                        },
+                        {
+                            "ts": 1471853580,
+                            "wearing": true,
+                            "ag": 7.15,
+                            "st": 37.5,
+                            "state": 2,
+                            "rr": 0,
+                            "pt": 0
+                        },
+                        {
+                            "ts": 1471853640,
+                            "wearing": false,
+                            "ag": 0,
+                            "st": 0,
+                            "state": 0,
+                            "rr": 0,
+                            "pt": 0
+                        }
+                    ]
+                }
             }
 
 
@@ -1429,12 +1466,84 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
     + Headers
     
-            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
      
     + Body
         
             {
                 "status": "ok"
+            }
+
+### Get Health Status Icon [POST /statuses/health_status_icon/]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
+    
+    + Attributes
+        + device_id (string, required)
+        + baby_id (string, required)
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "baby_id": "3508964009"
+            }
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+     
+    + Attributes
+        + status (enum[string], required)
+            + ok
+            + not ok
+        + allb (object, required)
+            + id (string, required)
+            + registered (boolean, required)
+            + connected (boolean, required)
+            + onwer_id (string, optional)
+            + link_baby_id (string, optional)
+        + health_status(object, optional)
+            + ts (number, required) - recent timestamp
+            + wearing (boolean, required)
+            + ag (number, required)
+            + st (number, required)
+            + state (enum[number], required)
+                + 0 - unknown
+                + 1 - sleep
+                + 2 - activity
+            + rr (number, required)
+            + pt (number, required)
+
+    + Body
+        
+            {
+                "status": "ok",
+                "allb": {
+                    "id": "allb1235",
+                    "onwer_id": "3508964011",
+                    "link_baby_id": "3508964009",
+                    "connected": true,
+                    "registered": true
+                },
+                "health_status": {
+                    {
+                        "ts": 1471853640,
+                        "wearing": false,
+                        "ag": 0,
+                        "st": 0,
+                        "state": 0,
+                        "rr": 0,
+                        "pt": 0
+                    }
+                }
             }
 
 ### Get Status of Days [POST /statuses/list_of_days/]
