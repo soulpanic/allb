@@ -1510,6 +1510,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             + connected (boolean, required)
             + onwer_id (string, optional)
             + link_baby_id (string, optional)
+            + connect_user_id (string, optional)
         + health_status(object, optional)
             + ts (number, required) - recent timestamp
             + wearing (boolean, required)
@@ -1531,18 +1532,17 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                     "onwer_id": "3508964011",
                     "link_baby_id": "3508964009",
                     "connected": true,
-                    "registered": true
+                    "registered": true, 
+                    "connect_user_id": "3508964011"
                 },
                 "health_status": {
-                    {
-                        "ts": 1471853640,
-                        "wearing": false,
-                        "ag": 0,
-                        "st": 0,
-                        "state": 0,
-                        "rr": 0,
-                        "pt": 0
-                    }
+                    "ts": 1471853640,
+                    "wearing": false,
+                    "ag": 0,
+                    "st": 0,
+                    "state": 0,
+                    "rr": 0,
+                    "pt": 0
                 }
             }
 
@@ -1569,9 +1569,10 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 + Response 200 (application/json)
 
     + Headers
-    
-            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
-     
+
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+
     + Body
         
             {
