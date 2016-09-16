@@ -145,8 +145,15 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
 ### Signup SMS Code [POST /accounts/send_signup_sms_code]
 
+
 + Request (application/json; charset=UTF-8)
 
+    + Attributes
+        
+        + device_id (string, required)
+        + country_code (string, required)
+        + recipient_num (string, required)
+        
     + Body
     
             {
@@ -158,6 +165,10 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
 + Response 200 (application/json)
     
+    + Attributes
+    
+        + status (string)
+        
     + Body
     
             {
@@ -167,7 +178,14 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 ### Validate Signup SMS Code [POST /accounts/validate_signup_sms_code]
 
 + Request (application/json; charset=UTF-8)
-
+    
+    + Attributes
+        
+        + device_id (string, required)
+        + country_code (string, required)
+        + recipient_num (string, required)
+        + verification_code (string, required)
+        
     + Body
     
             {
@@ -178,7 +196,11 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             }
             
 + Response 200 (application/json)
-        
+
+    + Attributes
+    
+        + status (string)
+                
     + Body
     
             {
@@ -190,6 +212,14 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
 + Request (application/json; charset=UTF-8)
 
+    + Attributes
+        + password (string, required) - hash string 
+        + device_id (string, required)
+        + verification_code (string, required)
+        + country_code (string, required)
+        + recipient_num (string, required)
+        + full_name (string, required)
+        
     + Body
     
             {
@@ -228,6 +258,13 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
 + Request (application/json; charset=UTF-8)
 
+    + Attributes
+        + full_name (string, required)
+        + password (string, required) - hash string 
+        + device_id (string, required)
+        + email (string, required)
+        + username (string, required)
+        
     + Body
     
             {
@@ -295,13 +332,19 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
 + Request (application/json; charset=UTF-8)
 
+    + Attributes
+        + username (string, required)
+        + password (string, required) - hash string 
+        + device_id (string, required)
+        + login_attempt_count (number, optional)
+        
     + Body
     
             {
                 "username": "allb",
                 "password": "973b0f95b114646f61132a1cfb3f77f3a1b5d6fd",
                 "device_id": "A243E750-217B-43BD-833C-0D141238CAE6",
-                "login_attempt_count": "0"
+                "login_attempt_count": 0
             }
             
 + Response 200 (application/json)
@@ -332,6 +375,9 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             
             Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
             
+    + Attributes
+        + device_id (string, required)
+        
     + Body
     
             {
@@ -351,6 +397,10 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
 + Request (application/json; charset=UTF-8)
 
+    + Attributes
+        + user_id (string, required)
+        + device_id (string, required)
+        
     + Body
     
             {
@@ -371,6 +421,9 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
 + Request (application/json; charset=UTF-8)
 
+    + Attributes
+        + user_id (string, required)
+        
     + Body
     
             {
@@ -391,7 +444,13 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
     + Headers
             
             Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
-    
+
+    + Attributes
+        + old_password (string, required) - hash string 
+        + new_password (string, required) - hash string 
+        + device_id (string, required)
+        + user_id (string, required)
+
     + Body
     
             {
@@ -425,8 +484,8 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
     
     + Attributes
     
-        + device_id (string) - unique device_id 
-        + user_id (string)
+        + device_id (string, required)
+        + user_id (string, required)
         
     + Body
     
@@ -454,9 +513,9 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
 ### Check Username [GET /users/check_userid/{user_id}]
 
-+ Attributes
++ Parameters
 
-    + user_id (string)
+    + user_id (string, required)
     
 + Response 200 (application/json)
         
@@ -635,7 +694,10 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
     
     + Attributes
 
-        + device_type (enum) - ios, android, unknown
+        + device_type (enum[string])
+            + ios
+            + android
+            + unknown
         
     + Body
     
