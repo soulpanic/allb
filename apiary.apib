@@ -511,11 +511,11 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
 ## Users Collection [/users]
 
-### Check Username [GET /users/check_userid/{user_id}]
+### Check Username [GET /users/check_username/{username}]
 
 + Parameters
 
-    + user_id (string, required)
+    + username (string, required)
     
 + Response 200 (application/json)
         
@@ -532,13 +532,13 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
     + Attributes
     
         + email (string, required)
-        + qe_id (string, required)
+        + device_id (string, required)
         
     + Body
     
             {
                 "email": "developer@myallb.com",
-                "qe_id": "A243E750-217B-43BD-833C-0D141238CAE6"
+                "device_id": "A243E750-217B-43BD-833C-0D141238CAE6"
             }
             
 + Response 200 (application/json)
@@ -548,8 +548,6 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             {
                 "available": true,
                 "status": "ok",
-                "confirmed": true,
-                "valid": true
             }
 
 ### Lookup Username [POST /users/lookup/]
