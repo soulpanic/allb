@@ -9,28 +9,30 @@ HOST: https://dev.myallb.com/v1
 
 HTTP status code described below should be returned by service:
 
-### Success responses
-
 <table>
     <tr>
         <td>200 <code>OK</code></td>
-        <td>The request was successful.</td>
-    </tr>
-    <tr>
-        <td>201 <code>Created</code></td>
-        <td>The request was successful and a new resource was created.</td>
-    </tr>
-    <tr>
-        <td>202 <code>Accepted</code></td>
-        <td>Asynchronous request - The request has been accepted for processing, but the processing has not been completed. Response must contain URL of resource to poll for result.</td>
-    </tr>
-    <tr>
-        <td>204 <code>No Content</code></td>
-        <td>The request was successful but there is nothing to return. Usually response of DELETE requests.</td>
+        <td>API should be 200 Code only.</td>
     </tr>
 </table>
 
+### Success responses
+
+```
+{
+    status: ok,
+    $(keys): $(vars)
+}
+```
+
 ### Error responses
+```
+{
+    status: not ok,
+    code: $(code),
+    message: $(message)
+}
+```
 <table>
     <tr>
         <td>400 <code>Bad Request</code></td>
@@ -58,6 +60,21 @@ HTTP status code described below should be returned by service:
             Maintenance reason and expected maintenance ent time are also returned in response.
         </td>
     </tr>
+    <tr>
+        <td>1062 <code>Duplicate</code></td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td>1366 <code>Wrong Value</code></td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td>1452 <code>A Foreign Key Constraint Fails</code></td>
+        <td>
+        </td>
+    </tr>
 </table>
 
 
@@ -75,13 +92,12 @@ any parameters not specified as a segment in the path can be passed as an HTTP q
 
 For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL should be encoded as JSON.
 
-    curl -i -H 'X-Allb-Api-Token: your_token' -d '{"name":"my table"}'
+    curl -i -b 'allb=session_key; allb.sig=session_sign_key;' -d '{"val":"test"}'
 ## Responses
 
 * API should be **JSON** only
 * Resource URI must be returned in `uri` property
 * Any possible metadata related to request or resource should be returned in custom HTTP headers 
-
 
 
 ## Accounts Collection [/accounts]
@@ -110,7 +126,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             }
 
 
-+ Response 200 (application/json)
++ Response 401 (application/json)
     
     Returned if the user does not have access to the requested account
     
@@ -244,7 +260,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
     + Headers
             
-            Cookie: ds_user_id=3508964009; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
             Content-Length: 273570
             
     + Body
@@ -265,10 +281,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                 "profile_pic_id": "1287645170888034076_3508964009",
                 "full_name": "올비",
                 "user_id": 3508964009,
-                "profile_pic_url_info": {
-                    "origin_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
-                    "thumbnail_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg"
-                }
+                "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg"
             }
         }
         
@@ -563,9 +576,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                     "username": "allb",
                     "has_anonymous_profile_picture": false,
                     "profile_pic_url_info": {
-                        "url": "http://scontent.myallb.com/t51.2885-19/s150x150/13531818_203446720052506_1355391822_a.jpg",
-                        "width": 150,
-                        "height": 150
+                        "url": "http://scontent.myallb.com/t51.2885-19/s150x150/13531818_203446720052506_1355391822_a.jpg"
                     },
                     "full_name": "올비",
                     "user_id": 3508964009,
