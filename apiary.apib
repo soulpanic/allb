@@ -1158,6 +1158,9 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                 "allbs": [
                     {
                         "id": "allb1234",
+                        "onwer_id": "3508964011",
+                        "link_baby_id": "3508964019",
+                        "state": "connected",
                         "registered": true
                     },
                     {
@@ -1213,8 +1216,9 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
     
     + Attributes
-
-        + unfollow_user_id (string)
+        + device_id (string, required)
+        + baby_id (string, required)
+        + allb_id (string, required)
         
     + Body
     
@@ -1240,6 +1244,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                     "id": "allb1235",
                     "onwer_id": "3508964011",
                     "link_baby_id": "3508964009",
+                    "state": "disconnected",
                     "registered": true
                 }
             }
@@ -1253,15 +1258,16 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
     
     + Attributes
-
-        + unfollow_user_id (string)
+        + device_id (string, required)
+        + baby_id (string, required)
+        + allb_id (string, required)
         
     + Body
     
             {
                 "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
-                "user_id": "3508964009",
-                "follow_user_id": "3495141195"
+                "baby_id": "3508964009",
+                "allb_id": "allb1235"
             }
 
 
@@ -1269,8 +1275,9 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
     + Headers
     
-            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
-     
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            
     + Body
         
             {
@@ -1278,7 +1285,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             }
 
 
-### Connected Allb [POST /allbs/connected_allb]
+### Connected Allb [POST /allbs/connected]
 
 + Request (application/json; charset=UTF-8)
     + Headers
@@ -1286,33 +1293,43 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
     
     + Attributes
-
-        + unfollow_user_id (string)
+        + device_id (string, required)
+        + baby_id (string, required)
+        + allb_id (string, required)
         
     + Body
     
             {
                 "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
-                "user_id": "3508964009",
-                "follow_user_id": "3495141195"
+                "baby_id": "3508964009",
+                "allb_id": "allb1235"
             }
+
 
 
 + Response 200 (application/json)
 
     + Headers
     
-            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
-     
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            
     + Body
         
             {
                 "status": "ok"
+                "allb": {
+                    "id": "allb1235",
+                    "onwer_id": "3508964011",
+                    "link_baby_id": "3508964009",
+                    "state": "connected",
+                    "registered": true
+                }
             }
 
 
 
-### Disconnected Allb [POST /allbs/disconnected_allb]
+### Disconnected Allb [POST /allbs/disconnected]
 
 + Request (application/json; charset=UTF-8)
     + Headers
@@ -1320,15 +1337,16 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
     
     + Attributes
-
-        + unfollow_user_id (string)
+        + device_id (string, required)
+        + baby_id (string, required)
+        + allb_id (string, required)
         
     + Body
     
             {
                 "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
-                "user_id": "3508964009",
-                "follow_user_id": "3495141195"
+                "baby_id": "3508964009",
+                "allb_id": "allb1235"
             }
 
 
@@ -1336,12 +1354,20 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
     + Headers
     
-            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
      
     + Body
         
             {
                 "status": "ok"
+                "allb": {
+                    "id": "allb1235",
+                    "onwer_id": "3508964011",
+                    "link_baby_id": "3508964009",
+                    "state": "disconnected",
+                    "registered": true
+                }
             }
             
             
