@@ -19,6 +19,7 @@ HTTP status code described below should be returned by service:
 ### Success responses
 
 ```
+Template
 {
     status: ok,
     $(keys): $(vars)
@@ -26,55 +27,95 @@ HTTP status code described below should be returned by service:
 ```
 
 ### Error responses
+
 ```
+Template
 {
     status: not ok,
     code: $(code),
     message: $(message)
 }
 ```
+
 <table>
+    <thead>
     <tr>
-        <td>400 <code>Bad Request</code></td>
-        <td>The request was invalid. Usually caused by invalid input data (missing arguments, invalid arguments values, etc.).  Cause of error is described in response.</td>
+        <th>Code</th>
+        <th>Message</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><center>400</center></td>
+        <td><code>Bad Request</code>
+        <div>
+            The request was invalid. Usually caused by invalid input data (missing arguments, invalid arguments values, etc.).  Cause of error is described in response.
+        </div>
+        </td>
     </tr>
     <tr>
-        <td>401 <code>Unauthorized</code></td>
-        <td>Authentication failed.</td>
+        <td><center>401</center></td>
+        <td><code>Unauthorized</code>
+        <div>
+            Authentication failed.
+        </div>
+        </td>
     </tr>
     <tr>
-        <td>403 <code>Forbidden</code></td>
-        <td>You don't have access to resource.</td>
+        <td><center>403</center></td>
+        <td><code>Forbidden</code>
+        <div>
+            You don't have access to resource.
+        </div>
+        </td>
     </tr>
     <tr>
-        <td>404 <code>Not Found</code></td>
-        <td>You're asking for something that doesn't exist.</td>
+        <td><center>404</center></td>
+        <td><code>Not Found</code>
+        <div>
+            You're asking for something that doesn't exist.
+        </div>
+        </td>
     </tr>
     <tr>
-        <td>500 <code>Internal Server Error</code></td>
-        <td>Something went wrong. We are sorry, it is our fault and we will make our best to fix it!</td>
+        <td><center>500</center></td>
+        <td><code>Internal Server Error</code>
+        <div>
+            Something went wrong. We are sorry, it is our fault and we will make our best to fix it!
+        </div>
+        </td>
     </tr>
     <tr>
-        <td>503 <code>Temporary Unavailable</code></td>
-        <td>This response is typically returned when system is under maintenance.
+        <td><center>503</center></td>
+        <td><code>Temporary Unavailable</code>
+        <div>
+            This response is typically returned when system is under maintenance.
             Maintenance reason and expected maintenance ent time are also returned in response.
+        </div>
         </td>
     </tr>
     <tr>
-        <td>1062 <code>Duplicate</code></td>
-        <td>
+        <td><center>1062</center></td>
+        <td><code>Duplicate</code>
+        <div>
+        </div>
         </td>
     </tr>
     <tr>
-        <td>1366 <code>Wrong Value</code></td>
-        <td>
+        <td><center>1366</center></td>
+        <td><code>Wrong Value</code>
+        <div>
+        </div>
         </td>
     </tr>
     <tr>
-        <td>1452 <code>A Foreign Key Constraint Fails</code></td>
-        <td>
+        <td><center>1452</center></td>
+        <td><code>A Foreign Key Constraint Fails</code>
+        <div>
+        </div>
         </td>
     </tr>
+    </tbody>
 </table>
 
 
@@ -97,7 +138,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
 * API should be **JSON** only
 * Resource URI must be returned in `uri` property
-* Any possible metadata related to request or resource should be returned in custom HTTP headers 
+* Any possible metadata related to request or resource should be returned in custom HTTP cookies 
 
 
 ## Accounts Collection [/accounts]
@@ -116,8 +157,6 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
 
 + Response 200 (application/json)
-
-    Returned if the user does not have access to the requested account
     
     + Body
     
@@ -125,33 +164,6 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                 "status": "ok"
             }
 
-
-+ Response 401 (application/json)
-    
-    Returned if the user does not have access to the requested account
-    
-    + Body
-    
-            {
-                "status": "not ok"
-            }
-
-+ Response 400 (application/json)
-
-    Standard error response
-
-    + Body
-
-        ```
-        {
-            "message": "INVALID",
-            "errors": {
-                "offset": [
-                    "INVALID"
-                ]
-            }
-        }
-        ```
 ### Validate Signup SMS Code [POST /accounts/validate_signup_sms_code]
 
 + Request (application/json; charset=UTF-8)
@@ -167,10 +179,11 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             
 + Response 200 (application/json)
         
-        {
-            "status": "ok"
-        }
-
+    + Body
+    
+            {
+                "status": "ok"
+            }
 
 
 ### Create User by Phone Number [POST /accounts/create_validated/]
@@ -193,8 +206,8 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
     
     + Headers
 
-            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
-            Set-Cookie: allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
 
     + Body
         
@@ -205,11 +218,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                     "has_anonymous_profile_picture": true,
                     "full_name": "올비",
                     "user_id": 3508964009,
-                    "profile_pic_url_info": {
-                        "url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
-                        "width": 150,
-                        "height": 150
-                    }
+                    "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg"
                 },
                 "account_created": true
             }
@@ -233,9 +242,9 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
     
     + Headers
 
-            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
-            Set-Cookie: allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
-
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            
     + Body
         
             {
@@ -245,10 +254,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                     "has_anonymous_profile_picture": true,
                     "full_name": "올비",
                     "user_id": 3508964009,
-                    "profile_pic_url_info": {
-                        "origin_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
-                        "thumbnail_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg"
-                    }
+                    "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg"
                 },
                 "account_created": true
             }
@@ -284,10 +290,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                 "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg"
             }
         }
-        
-
-
-
+    
 ### Login by Username [POST /accounts/login]
 
 + Request (application/json; charset=UTF-8)
@@ -305,20 +308,16 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
     + Headers
     
-            Set-Cookie: ds_user=allb; expires=Mon, 03-Oct-2016 13:06:33 GMT; Max-Age=7776000; Path=/
-            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
-            Set-Cookie: allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
-    
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+
     + Body
         
             {
                 "logged_in_user": {
                     "username": "allb",
                     "has_anonymous_profile_picture": false,
-                    "profile_pic_url_info": {
-                        "origin_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
-                        "thumbnail_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg"
-                    },
+                    "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
                     "full_name": "올비",
                     "user_id": 3508964009,
                     "fbuid": ""
@@ -331,7 +330,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 + Request (application/json; charset=UTF-8)
     + Headers
             
-            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
             
     + Body
     
@@ -342,12 +341,6 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
 + Response 200 (application/json)
 
-    + Headers
-    
-            Set-Cookie: ds_user=; expires=Mon, 03-Oct-2016 13:06:33 GMT; Max-Age=7776000; Path=/
-            Set-Cookie: ds_user_id=; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
-            Set-Cookie: allb.sid=; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
-    
     + Body
         
             {
@@ -397,7 +390,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 + Request (application/json; charset=UTF-8)
     + Headers
             
-            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
     
     + Body
     
@@ -413,9 +406,9 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
     + Headers
     
-            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
-            Set-Cookie: allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
- 
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            
     + Body
         
             {
@@ -428,10 +421,11 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 + Request (application/json; charset=UTF-8)
     + Headers
             
-            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
     
     + Attributes
-
+    
+        + device_id (string) - unique device_id 
         + user_id (string)
         
     + Body
@@ -446,7 +440,8 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
     + Headers
     
-            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
      
     + Body
         
@@ -457,11 +452,11 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
 ## Users Collection [/users]
 
-### Check Username [GET /users/check_username/{user_name}]
+### Check Username [GET /users/check_userid/{user_id}]
 
 + Attributes
 
-    + user_name (string)
+    + user_id (string)
     
 + Response 200 (application/json)
         
@@ -484,12 +479,14 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             
 + Response 200 (application/json)
         
-        {
-            "available": true,
-            "status": "ok",
-            "confirmed": true,
-            "valid": true
-        }
+    + Body
+        
+            {
+                "available": true,
+                "status": "ok",
+                "confirmed": true,
+                "valid": true
+            }
 
 ### Lookup Username [POST /users/lookup/]
 
@@ -514,10 +511,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                 "user": {
                     "username": "allb",
                     "has_anonymous_profile_picture": false,
-                    "profile_pic_url_info": {
-                        "origin_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
-                        "thumbnail_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg"
-                    },
+                    "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
                     "full_name": "올비",
                     "user_id": 3508964009
                 }
@@ -530,12 +524,17 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
 + Request (application/json; charset=UTF-8)
 
+    + Attributes
+
+        + fb_access_token (string) - new User
+    
     + Body
     
             {
                 "device_id": "A243E750-217B-43BD-833C-0D141238CAE6",
                 "fb_access_token": "AAABwzLixnjYBABZCEHK73ZBIDMtyqDOoJdT3Yn1eAxxtnZA345940f3mNv79mNaD9e5x34pZCAACybWuceQG09aZBcbWTS3aaSmtH9C8XGUPo2JDqYZB6h1OkJaUtmGZChYOGMMEcYQZCKYxU9MEZHClJAzi8Jg8Ip0SZA8AYy9lNotkwz4ZBXqOx3sNYyqRTryXnBYZD",
             } 
+            
 
 + Response 200 (application/json)
 
@@ -560,24 +559,33 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                 "account_created": false
             }
 
++ Request (application/json; charset=UTF-8)
+    
+    + Attributes
 
-+ Response 201 (application/json)
+        + fb_access_token (string) - The users already subscribed
+    
+    + Body
+    
+            {
+                "device_id": "A243E750-217B-43BD-833C-0D141238CAE6",
+                "fb_access_token": "AAABwzLixnjYBABZCEHK73ZBIDMtyqDOoJdT3Yn1eAxxtnZA345940f3mNv79mNaD9e5x34pZCAACybWuceQG09aZBcbWTS3aaSmtH9C8XGUPo2JDqYZB6h1OkJaUtmGZChYOGMMEcYQZCKYxU9MEZHClJAzi8Jg8Ip0SZA8AYy9lNotkwz4ZBXqOx3sNYyqRTryXnBYZD",
+            } 
+            
++ Response 200 (application/json)
     
     + Headers
-
-            Set-Cookie: ds_user=allb; expires=Sun, 02-Oct-2016 06:56:13 GMT; Max-Age=7776000; Path=/
-            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
-            Set-Cookie: allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
-
+    
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            
     + Body
         
             {
                 "logged_in_user": {
                     "username": "allb",
                     "has_anonymous_profile_picture": false,
-                    "profile_pic_url_info": {
-                        "url": "http://scontent.myallb.com/t51.2885-19/s150x150/13531818_203446720052506_1355391822_a.jpg"
-                    },
+                    "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
                     "full_name": "올비",
                     "user_id": 3508964009,
                     "fbuid": "100001826920780"
@@ -593,7 +601,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 + Request (application/json; charset=UTF-8)
     + Headers
             
-            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
     
     + Body
     
@@ -607,7 +615,8 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
     + Headers
     
-            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
              
     + Body
         
@@ -622,11 +631,11 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 + Request (application/json; charset=UTF-8)
     + Headers
             
-            Cookie: ds_user_id=3508964009; ds_user=allb; allb.sid=IGSCd2a697fff548769e5903d52f75518b4e1bb55b04ee0a929b69debe1cfd746c79:fCEyadT25kZAivewoF1L7epzwYCOuCYu
+            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
     
     + Attributes
 
-        + device_type (string)
+        + device_type (enum) - ios, android, unknown
         
     + Body
     
@@ -642,7 +651,8 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
     + Headers
     
-            Set-Cookie: ds_user_id=3508964009; expires=Mon, 03-Oct-2016 11:48:05 GMT; Max-Age=7776000; Path=
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
              
     + Body
         
