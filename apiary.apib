@@ -868,6 +868,10 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                             {
                                 "has_anonymous_profile_picture": false,
                                 "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                            },
+                            {
+                                "has_anonymous_profile_picture": false,
+                                "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
                             }
                         ]
                     },
@@ -979,7 +983,6 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
 ## Babies Collection [/babies]
 
-           
 ### Create Baby [POST /babies/create]
 
 + Request (application/json; charset=UTF-8)
@@ -1184,13 +1187,14 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
         + status (enum[string], required)
             + ok
             + not ok
-        + allbs (object, required)
-            + id (string, required)
-            + registered (boolean, required)
-            + connected (boolean, required)
-            + onwer_id (string, optional)
-            + link_baby_id (string, optional)
-            + connect_user_id (string, optional)
+        + allbs (array, required)
+            + allb
+                + id (string, required)
+                + registered (boolean, required)
+                + connected (boolean, required)
+                + onwer_id (string, optional)
+                + link_baby_id (string, optional)
+                + connect_user_id (string, optional)
 
     + Body
         
@@ -1428,17 +1432,18 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
         + allb_id (string, required)
         + data (object, required)
             + length (number, required) 
-            + items (object, required)
-                + ts (number, required)
-                + wearing (boolean, required)
-                + ag (number, required)
-                + st (number, required)
-                + state (enum[number], required)
-                    + 0 - unknown
-                    + 1 - sleep
-                    + 2 - activity
-                + rr (number, required)
-                + pt (number, required)
+            + items (array, required)
+                + item 
+                    + ts (number, required)
+                    + wearing (boolean, required)
+                    + ag (number, required)
+                    + st (number, required)
+                    + state (enum[number], required)
+                        + 0 - unknown
+                        + 1 - sleep
+                        + 2 - activity
+                    + rr (number, required)
+                    + pt (number, required)
                 
     + Body
     
@@ -1533,7 +1538,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             + ok
             + not ok
         + allb (object, required)
-            + id (string, required)
+            + id (string, optional)
             + registered (boolean, required)
             + connected (boolean, required)
             + onwer_id (string, optional)
@@ -1574,7 +1579,13 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                 }
             }
 
-### Get Status of Days [POST /statuses/list_of_days/]
+### Get Status of Days [POST /statuses/list_of_days/{type}]
+
++ Parameter 
+    + type (enum[string], required)
+        + sleep
+        + breath
+        + temperature
 
 + Request (application/json; charset=UTF-8)
     + Headers
@@ -1583,14 +1594,36 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
     
     + Attributes
 
-        + unfollow_user_id (string)
+        + device_id (string, required)
+        + baby_id (string, required)
+        + days (array, required)
+            + day
+                + date (string, required)
+                + update_ts (number, required)
         
     + Body
     
             {
                 "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
-                "user_id": "3508964009",
-                "follow_user_id": "3495141195"
+                "baby_id": "3508964009"
+                "days": [
+                    {
+                        "date": "2016-08-15",
+                        "update_ts": 1471853580
+                    },
+                    {
+                        "date": "2016-08-16",
+                        "update_ts": 1471853580
+                    },
+                    {
+                        "date": "2016-08-17",
+                        "update_ts": 1471853580
+                    },
+                    {
+                        "date": "2016-08-18",
+                        "update_ts": 1471853580
+                    }
+                ]
             }
 
 
@@ -1605,6 +1638,37 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
         
             {
                 "status": "ok"
+                "days": [
+                    {
+                        "date": "2016-08-15",
+                        "modified": true, 
+                        "recent_update_ts": 1471853580,
+                        "data": [
+                            "0": ,
+                            "1": ,
+                            "2": ,
+                            "3": ,
+                            "4": ,
+                            "5": ,
+                            "6": ,
+                            "7": ,
+                            "8": ,
+                            "9": ,
+                        ], 
+                        "insight": [
+                        ]
+                    },
+                    {
+                        "date": "2016-08-16",
+                        "modified": false,
+                        "recent_update_ts": 1471853580
+                    },
+                    {
+                        "date": "2016-08-18",
+                        "modified": true,
+                        "recent_update_ts": 1471853580
+                    }
+                ]
             }
 
 
