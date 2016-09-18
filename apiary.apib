@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: https://dev.myallb.com/v1
+HOST: https://api.myallb.com/v1
 
 # allb
 
@@ -321,7 +321,6 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             "user": {
                 "username": "allb",
                 "has_anonymous_profile_picture": false,
-                "profile_pic_id": "1287645170888034076_3508964009",
                 "full_name": "올비",
                 "user_id": 3508964009,
                 "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg"
@@ -423,11 +422,13 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
     + Attributes
         + user_id (string, required)
+        + device_id (string, required)
         
     + Body
     
             {
-                "user_id": "3508964009"
+                "user_id": "3508964009",
+                "device_id": "A243E750-217B-43BD-833C-0D141238CAE6"
             }
 
 + Response 200 (application/json)
@@ -449,7 +450,6 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
         + old_password (string, required) - hash string 
         + new_password (string, required) - hash string 
         + device_id (string, required)
-        + user_id (string, required)
 
     + Body
     
@@ -457,7 +457,6 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                 "old_password": "973b0f95b114646f61132a1cfb3f77f3a1b5d6fd",
                 "new_password": "123b0f95b114646f61132a1cfb3f77f3a1b5d6ff",
                 "device_id": "A243E750-217B-43BD-833C-0D141238CAE6",
-                "user_id": "3508964009"
             }
 
 
