@@ -7,15 +7,6 @@ HOST: https://api.myallb.com/v1
 
 ## HTTP Response Codes
 
-HTTP status code described below should be returned by service:
-
-<table>
-    <tr>
-        <td>200 <code>OK</code></td>
-        <td>API should be 200 Code only.</td>
-    </tr>
-</table>
-
 ### Success responses
 
 ```
@@ -25,6 +16,13 @@ Template
     $(keys): $(vars)
 }
 ```
+
+<table>
+    <tr>
+        <td>200 <code>OK</code></td>
+        <td>API should be 200 Code only.</td>
+    </tr>
+</table>
 
 ### Error responses
 
@@ -524,7 +522,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             "available": true
         }
 
-### Check Email [GET /users/check_email/]
+### Check Email [POST /users/check_email/]
 
 + Request (application/json; charset=UTF-8)
 
@@ -1225,7 +1223,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
     
     + Attributes
         + device_id (string, required)
-        + allb_id (array, required)
+        + allb_id (string, required)
         
     + Body
     
@@ -1674,7 +1672,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 ## Channels Collection [/channels]
 
 
-### Conversations [GET /channels/conversations/]
+### Conversations [POST /channels/conversations/]
 
 + Request (application/json; charset=UTF-8)
     + Headers
