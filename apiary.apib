@@ -655,6 +655,49 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             }
 
 
+### Circle [GET /users/circle/]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+        
+    + Body
+        
+            {
+                "status": "ok",
+                "users": [
+                    {
+                        "username": "bright",
+                        "has_anonymous_profile_picture": false,
+                        "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                        "full_name": "브라이트",
+                        "user_id": 3508964029,
+                        "babies": [
+                            {
+                                "baby_id": 10000000002,
+                                "owner_id": 10000000002,
+                                "manager_id": 3508964029, 
+                                "public": true, 
+                                "name": "잉이앵이애옹", 
+                                "has_anonymous_straight_profile_picture": false, 
+                                "has_anonymous_prone_profile_picture": false, 
+                                "straight_profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                                "prone_profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg"
+                            }
+                        ]
+                    }
+                ]
+            }
+
 ## Facebook Collection [/fd]
 
 ### Create User by FB [POST /fb/fb_signup/]
@@ -808,6 +851,62 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
 ## Find Friends Collection [/address_book]
 
+### Find Friends by USER [POST /users/find/]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
+            
+    + Attributes
+    
+        + device_id (string, required)
+        + q (string, required) - email or id
+    
+    + Body
+    
+            {
+                "device_id": "A243E750-217B-43BD-833C-0D141238CAE6",
+                "q": "bright"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+        
+    + Body
+        
+            {
+                "status": "ok",
+                "users": [
+                    {
+                        "username": "bright",
+                        "has_anonymous_profile_picture": false,
+                        "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                        "full_name": "브라이트",
+                        "user_id": 3508964029,
+                        "babies": [
+                            {
+                                "baby_id": 10000000002,
+                                "owner_id": 10000000002,
+                                "manager_id": 3508964029, 
+                                "public": true, 
+                                "name": "잉이앵이애옹", 
+                                "has_anonymous_straight_profile_picture": false, 
+                                "has_anonymous_prone_profile_picture": false, 
+                                "straight_profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                                "prone_profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg"
+                            }
+                        ]
+                    }
+                ]
+            }
+
+
 ### Find Friends by Addressbook [POST /address_book/link/]
 
 + Request (application/json; charset=UTF-8)
@@ -876,8 +975,15 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                         "user_id": 3508964029,
                         "babies_thumbnails": [
                             {
-                                "has_anonymous_profile_picture": false,
-                                "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                                "baby_id": 10000000003,
+                                "owner_id": 10000000002,
+                                "manager_id": 3508964029, 
+                                "public": false, 
+                                "name": "잉이앵이애옹2", 
+                                "has_anonymous_straight_profile_picture": true, 
+                                "has_anonymous_prone_profile_picture": true, 
+                                "straight_profile_url": null,
+                                "prone_profile_url": null
                             }
                         ]
                     },
@@ -889,8 +995,15 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                         "user_id": 3508964019,
                         "babies_thumbnails": [
                             {
-                                "has_anonymous_profile_picture": false,
-                                "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                                "baby_id": 10000000003,
+                                "owner_id": 10000000002,
+                                "manager_id": 3508964019, 
+                                "public": false, 
+                                "name": "잉이앵이애옹2", 
+                                "has_anonymous_straight_profile_picture": true, 
+                                "has_anonymous_prone_profile_picture": true, 
+                                "straight_profile_url": null,
+                                "prone_profile_url": null
                             }
                         ]
                     }
@@ -937,12 +1050,26 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                         "user_id": 3508964029,
                         "babies_thumbnails": [
                             {
-                                "has_anonymous_profile_picture": false,
-                                "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                                "baby_id": 10000000003,
+                                "owner_id": 10000000002,
+                                "manager_id": 3508964029, 
+                                "public": false, 
+                                "name": "잉이앵이애옹2", 
+                                "has_anonymous_straight_profile_picture": true, 
+                                "has_anonymous_prone_profile_picture": true, 
+                                "straight_profile_url": null,
+                                "prone_profile_url": null
                             },
                             {
-                                "has_anonymous_profile_picture": false,
-                                "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                                "baby_id": 10000000003,
+                                "owner_id": 10000000002,
+                                "manager_id": 3508964029, 
+                                "public": false, 
+                                "name": "잉이앵이애옹2", 
+                                "has_anonymous_straight_profile_picture": true, 
+                                "has_anonymous_prone_profile_picture": true, 
+                                "straight_profile_url": null,
+                                "prone_profile_url": null
                             }
                         ]
                     },
@@ -954,8 +1081,15 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                         "user_id": 3508964019,
                         "babies_thumbnails": [
                             {
-                                "has_anonymous_profile_picture": false,
-                                "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                                "baby_id": 10000000003,
+                                "owner_id": 10000000002,
+                                "manager_id": 3508964019, 
+                                "public": false, 
+                                "name": "잉이앵이애옹2", 
+                                "has_anonymous_straight_profile_picture": true, 
+                                "has_anonymous_prone_profile_picture": true, 
+                                "straight_profile_url": null,
+                                "prone_profile_url": null
                             }
                         ]
                     }
@@ -999,15 +1133,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
     + Body
         
             {
-                "status": "ok",
-                "follow_users" : [ 
-                    "3495141194"
-                    "3495141195",
-                    "3495141196",
-                    "3495141197",
-                    "3495141198",
-                    "3495141199"
-                ]
+                "status": "ok"
             }
             
             
@@ -1099,7 +1225,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             + not ok
         + baby (object, required)
             + id (string, required)
-            + onwer_id (string, required)
+            + ownel_id (string, required)
             + name (string, required)
             + has_anonymous_straight_profile_picture (boolean, required)
             + has_anonymous_prone_profile_picture (boolean, required)
@@ -1127,13 +1253,13 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                 "status": "ok"
                 "baby" : {
                     "id": "3508964019",
-                    "onwer_id": "3508964011",
+                    "ownel_id": "3508964011",
                     "name": "애옹",
                     "has_anonymous_straight_profile_picture": true,
                     "has_anonymous_prone_profile_picture": true,
                     "straight_profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
                     "prone_profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
-                    "gender": "male",
+                    "gender": 0,
                     "birthday": "2013-08-09",
                     "skin" : 0,
                     "public": false,
@@ -1142,9 +1268,58 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             }
 
 
+
+### Update Baby [POST /babies/update]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "baby_id": 11100002020,
+                "name": "애옹2",
+                "birthday": "2013-08-19",
+                "gender": 1,
+                "skin" : 0
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            
+    + Body
+        
+            {
+                "status": "ok"
+                "baby" : {
+                    "id": "3508964019",
+                    "ownel_id": "3508964011",
+                    "name": "애옹2",
+                    "has_anonymous_straight_profile_picture": true,
+                    "has_anonymous_prone_profile_picture": true,
+                    "straight_profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                    "prone_profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                    "gender": 1,
+                    "birthday": "2013-08-19",
+                    "skin" : 0,
+                    "public": false,
+                    "state": 0
+                }
+            }
+
+
+
 ### Change Straight Profile Picture [POST /babies/change_straight_profile_picture]
 
-+ Request (multipart/form-data;boundary=--18049700-A5D6-4E28-AB1D-00108CE7F108)
++ Request (multipart/form-data;boundary=------WebKitFormBoundaryJA5jfXytoMDHcvrv)
 
     + Headers
             
@@ -1152,8 +1327,12 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             Content-Length: 273570
             
     + Body
-    
-            --18049700-A5D6-4E28-AB1D-00108CE7F108
+            
+            ------WebKitFormBoundaryJA5jfXytoMDHcvrv
+            Content-Disposition: form-data; name="baby_id"
+
+            10000000000
+            ------WebKitFormBoundaryJA5jfXytoMDHcvrv
             Content-Disposition: form-data; name="profile_pic"; filename="profile_pic"
             Content-Type: image/jpeg
             Content-Transfer-Encoding: binary
@@ -1167,13 +1346,13 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                 "status": "ok"
                 "baby" : {
                     "id": "3508964019",
-                    "onwer_id": "3508964011",
+                    "ownel_id": "3508964011",
                     "name": "애옹",
                     "has_anonymous_straight_profile_picture": false,
                     "has_anonymous_prone_profile_picture": true,
                     "straight_profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
                     "prone_profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
-                    "gender": "male",
+                    "gender": 0,
                     "birthday": "2013-08-09",
                     "skin" : 0,
                     "public": false,
@@ -1185,7 +1364,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
 
 ### Change Prone Profile Picture [POST /accounts/change_prone_profile_picture]
 
-+ Request (multipart/form-data;boundary=--18049700-A5D6-4E28-AB1D-00108CE7F108)
++ Request (multipart/form-data;boundary=------WebKitFormBoundaryJA5jfXytoMDHcvrv)
 
     + Headers
             
@@ -1193,8 +1372,12 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             Content-Length: 273570
             
     + Body
-    
-            --18049700-A5D6-4E28-AB1D-00108CE7F108
+            
+            ------WebKitFormBoundaryJA5jfXytoMDHcvrv
+            Content-Disposition: form-data; name="baby_id"
+
+            10000000000
+            ------WebKitFormBoundaryJA5jfXytoMDHcvrv
             Content-Disposition: form-data; name="profile_pic"; filename="profile_pic"
             Content-Type: image/jpeg
             Content-Transfer-Encoding: binary
@@ -1208,7 +1391,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                 "status": "ok"
                 "baby" : {
                     "id": "3508964019",
-                    "onwer_id": "3508964011",
+                    "ownel_id": "3508964011",
                     "name": "애옹",
                     "has_anonymous_straight_profile_picture": true,
                     "has_anonymous_prone_profile_picture": false,
@@ -1221,7 +1404,274 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                     "state": 0
                 }
             }
+
+### Info Baby [POST /babies/info]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
         
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "baby_id": 11100002020,
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            
+    + Body
+        
+            {
+                "status": "ok",
+                "baby" : {
+                    "id": "3508964019",
+                    "ownel_id": "3508964011",
+                    "name": "애옹",
+                    "has_anonymous_straight_profile_picture": true,
+                    "has_anonymous_prone_profile_picture": false,
+                    "straight_profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                    "prone_profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                    "gender": "male",
+                    "birthday": "2013-08-09",
+                    "skin" : 0,
+                    "public": false,
+                    "state": 0
+                },
+                "shared_users": [
+                    {
+                        "username": "allb",
+                        "has_anonymous_profile_picture": false,
+                        "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                        "full_name": "올비",
+                        "user_id": 3508964009
+                    }, 
+                    {
+                        "username": "allb",
+                        "has_anonymous_profile_picture": false,
+                        "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                        "full_name": "올비",
+                        "user_id": 3508964009
+                    }
+                ]
+            }
+
+### Delete Baby [POST /babies/delete]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "baby_id": 11100002020,
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            
+    + Body
+        
+            {
+                "status": "ok"
+            }
+
+### Disable Baby [POST /babies/disable]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "baby_id": 11100002020,
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            
+    + Body
+        
+            {
+                "status": "ok"
+            }
+
+
+### Enable Baby [POST /babies/enable]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "baby_id": 11100002020,
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            
+    + Body
+        
+            {
+                "status": "ok"
+            }
+
+
+
+## Shared Collection [/shared]
+
+### Request Shared Baby [POST /shared/request]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "owner_id": 11100002020,
+                "baby_id": "11100002021"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            
+    + Body
+        
+            {
+                "status": "ok"
+            }
+
+
+### Accept Shared Baby [POST /shared/accept]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "request_id": 11100002020,
+                "baby_id": "11100002021"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            
+    + Body
+        
+            {
+                "status": "ok"
+            }
+            
+### Request List [GET /shared/request_list]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
+            
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            
+    + Body
+        
+            {
+                "status": "ok",
+                "requests":[
+                    {
+                        "baby_id": 11100002021,
+                        "users": [ 
+                            {
+                                "username": "allb",
+                                "has_anonymous_profile_picture": false,
+                                "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                                "full_name": "올비",
+                                "user_id": 3508964009
+                            }, 
+                            {
+                                "username": "allb",
+                                "has_anonymous_profile_picture": false,
+                                "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                                "full_name": "올비",
+                                "user_id": 3508964009
+                            }
+                        ]
+                    }, 
+                    {
+                        "baby_id": 11100002022,
+                        "users": [ 
+                            {
+                                "username": "allb",
+                                "has_anonymous_profile_picture": false,
+                                "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                                "full_name": "올비",
+                                "user_id": 3508964009
+                            }, 
+                            {
+                                "username": "allb",
+                                "has_anonymous_profile_picture": false,
+                                "profile_url": "http://scontent.myallb.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg",
+                                "full_name": "올비",
+                                "user_id": 3508964009
+                            }
+                        ]
+                    }, 
+                ]
+            }
+            
 
 ## Allbs Collection [/allbs]
 
@@ -1262,10 +1712,6 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             + allb
                 + id (string, required)
                 + registered (boolean, required)
-                + connected (boolean, required)
-                + onwer_id (string, optional)
-                + link_baby_id (string, optional)
-                + connect_user_id (string, optional)
 
     + Body
         
@@ -1274,11 +1720,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                 "allbs": [
                     {
                         "id": "allb1234",
-                        "registered": true,
-                        "onwer_id": "3508964011",
-                        "link_baby_id": "3508964019",
-                        "connected": true,
-                        "connect_user_id": "3508964011",
+                        "registered": true
                     },
                     {
                         "id": "allb1235",
@@ -1286,6 +1728,50 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                     }
                 ]
             }
+
+
+
+### Get Linked Allb [POST /allbs/linked_allb]
+
++ Request (application/json; charset=UTF-8)
+    + Headers
+            
+            Cookie: allb=1NUT2MTVER-2XL1234567; allb.sig=1NUT2MTVER-2XL1234567;
+    
+    + Attributes
+        + device_id (string, required)
+        + baby_id (string, required)
+        
+    + Body
+    
+            {
+                "device_id": "2F33E750-237B-41BD-833C-0D141CD8CAE6",
+                "baby_id": "11100002021"
+            }
+
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Set-Cookie: allb=1NUT2MTVER-2XL1234567; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+            Set-Cookie: allb.sig=1NUT2MTVER-2XL1234561; expires=Mon, 03-Oct-2016 11:48:05 GMT; httponly; Max-Age=7776000; Path=/
+     
+    + Body
+        
+            {
+                "status": "ok"
+                "allb": {
+                    "id": "allb1235",
+                    "ownel_id": "3508964011",
+                    "linked": true,
+                    "link_baby_id": "11100002021",
+                    "connected": true,
+                    "registered": true,
+                    "connect_user_id": "3508964011",
+                }
+            }
+
 
 
 ### Reset Allb [POST /allbs/reset]
@@ -1358,7 +1844,8 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                 "status": "ok"
                 "allb": {
                     "id": "allb1235",
-                    "onwer_id": "3508964011",
+                    "ownel_id": "3508964011",
+                    "linked": true,
                     "link_baby_id": "3508964009",
                     "connected": false,
                     "registered": true,
@@ -1436,7 +1923,8 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                 "status": "ok"
                 "allb": {
                     "id": "allb1235",
-                    "onwer_id": "3508964011",
+                    "ownel_id": "3508964011",
+                    "linked": true,
                     "link_baby_id": "3508964009",
                     "connected": true,
                     "registered": true,
@@ -1480,7 +1968,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                 "status": "ok"
                 "allb": {
                     "id": "allb1235",
-                    "onwer_id": "3508964011",
+                    "ownel_id": "3508964011",
                     "link_baby_id": "3508964009",
                     "connected": false,
                     "registered": true,
@@ -1612,7 +2100,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
             + id (string, optional)
             + registered (boolean, required)
             + connected (boolean, required)
-            + onwer_id (string, optional)
+            + ownel_id (string, optional)
             + link_baby_id (string, optional)
             + connect_user_id (string, optional)
         + health_status(object, optional)
@@ -1633,7 +2121,7 @@ For `POST`, `PUT`, and `DELETE` requests, parameters not included in the URL sho
                 "status": "ok",
                 "allb": {
                     "id": "allb1235",
-                    "onwer_id": "3508964011",
+                    "ownel_id": "3508964011",
                     "link_baby_id": "3508964009",
                     "connected": true,
                     "registered": true, 
